@@ -14,31 +14,28 @@ Student.prototype.setSubject = function (subjectName) {
 }
 
 Student.prototype.addMark = function (mark) {
-  this.mark = mark;
-}
-
-if(this.marks === undefined){ 
-    Student.marks += mark;// добавить первую оценку 
-    } else {
-     Student.marks += marks; // добавить вторую и последующие оценки в массив
-    }
-
-Student.prototype.addMarks = function (mark1, mark2, mark3) {
-  this.marks = (...marks)
-}
-
-Student.prototype.getAverage = function(){
-const average = marks.reduce((acc, item, idx, arr) => { if (idx === arr.length - 1) {
-return (acc + item) / arr.length; } else {
-    return acc + item;
+  if(this.marks == undefined) {
+    this.marks = [];
   }
-})
+  this.marks.push(mark);
+}
+
+
+Student.prototype.addMarks = function (... addedMarks) {
+  if(this.marks == undefined) {
+    this.marks = [];
+  }
+  addedMarks.forEach(mark => this.marks.push(mark));
+} 
+
+Student.prototype.getAvg  = function () {
+  let sum = this.marks.reduce ((x, y) => x + y);
+  let avg = sum / this.marks.length;
+  return avg;
 }
 
 Student.prototype.exclude = function (reason) {
-  delete Student.subject;
-  delete Student.marks;
-  this.excluded = reason;
+  delete this.subject;
+  delete this.marks;
+  this.exclude = reason;
 }
-
-student1.setSubject("Algebra");
