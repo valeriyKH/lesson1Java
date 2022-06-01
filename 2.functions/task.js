@@ -1,39 +1,30 @@
 // Задание 1
-function getArrayParams(arr) {
-  let min, max, sum, avg;
-  function minimal(arr){
+function getArrayParams(arr){
+  this.arr = arr
     min = arr[0];
-    for(let i = 0; i < arr.length; i++){
-      if(min > arr[i]){
-        min = arr[i]
-      }
-    }
-    console.log(min)
-    }
-    minimal([1,2,3]);
-  
-    function maximum(arr){
     max = arr[0];
     for(let i = 0; i < arr.length; i++){
-      if(max < arr[i]){
-        max = arr[i]
+      if(min > arr[i]){
+        min = arr[i];
+      } else if(max < arr[i]){
+        max = arr[i];
       }
     }
-    console.log(max)
-    }
-    maximum([1,2,3])
   
-    function average(arr){
-     sum = 0;
-      for(let i= 0; i<arr.length; i++){
-        sum+=arr[i];
-      }
-      avg = sum / arr.length
-      console.log(avg);
+  function sum(... arr){
+    let total = 0;
+    for(i= 0; i < arr.length; i++){
+      total += arr[i];
     }
-    average([1,2,3])
-  return { min: min, max: max, avg: avg };
-}
+    return total;
+  }
+
+  let avg = (sum(...arr) / arr.length).toFixed(2);
+    return {min: min, max: max, avg: + avg};
+}    
+
+console.log(getArrayParams([-99, 99, 10]));
+console.log(getArrayParams([1, 2, 3, -100, 10]));
 
 
 // Задание 2
