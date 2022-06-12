@@ -28,20 +28,19 @@ console.log(getArrayParams([1, 2, 3, -100, 10]));
 
 
 // Задание 2
-function worker(arrOfArr){
-  let total = null;
-  for(i= 0; i < arrOfArr.length; i++){
-    total += arrOfArr[i];
+function worker(arr){
+  let total = 0;
+  for(i= 0; i < arr.length; i++){
+    total += arr[i];
   }
   return total;
 }
 
-let arrOfArr = [[1,2,3,4], [10,20,-10,-20]];
 
-function makeWork(arrOfArr, func) {
-  let max = -Infinity;
-    for(let i=0; i< arrOfArr.length; i++) {
-      let result = func(arrOfArr[i]);
+function makeWork(arrOfArr, worker) {
+  let max = worker(arrOfArr[0]);
+    for(let i=1; i< arrOfArr.length; i++) {
+      let result = worker(arrOfArr[i]);
       if (max < result) {
       max = result;
       }
@@ -50,18 +49,11 @@ function makeWork(arrOfArr, func) {
 }
 
 // Задание 3
-function worker2(arrOfArr){
-  this.arr = arrOfArr
-    min = arrOfArr[0];
-    max = arrOfArr[0];
-    for(let i = 0; i < arrOfArr.length; i++){
-      if(min > arrOfArr[i]){
-        min = arrOfArr[i];
-      } else if(max < arrOfArr[i]){
-        max = arrOfArr[i];
-      }
-      function difference (max, min){
-          console.log(Math.abs(max - min));   
-      }
-    }
+function worker2(){
+  let minimum = Math.abs(min);
+  let maximum = Math.abs(max);
+  let difference = maximum - minimum;
+
+  return difference;
+      
 }
