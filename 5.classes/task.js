@@ -89,7 +89,7 @@ console.log(picknick.state); //15
   
   // task2 
 
-  class Liberty {
+  class Library {
     constructor(name, books) {
     this.name = "name";
     this.books = [];
