@@ -44,7 +44,7 @@ const debounceDecorator = (f, ms) => {
     return wrapper;
 };
 
-const showCoords = () => console.log("Сигнал отправлен!");
+const showCoords = () => console.log("Сигнал отправленs");
 const showCoordsDebounced = debounceDecorator(showCoords, 2000);
 
 
@@ -58,31 +58,33 @@ setTimeout(showCoordsDebounced, 4400); // Сигнал отправлен так
 setTimeout(showCoordsDebounced, 4500);
 
  // Task3
- function debounceDecorator2(func) {
-  const debounceDecorator = (f, ms) => {
-    let timerId;
-     
-    return function (...args) {
-      count.history.push(args);
+const debounceDecorator2 = (f, ms) => {
+  let timerId;
+  let time = false;
+
+  const wrapper = (...args) => {
     clearTimeout(timerId);
-      
-    timerId = setTimeout(() => {
-   
-    f.apply(this, args);
-      
-    console.timeEnd("time");
-    }, ms);
-      
-    };
-   };
-   const showCoords = () => console.log("Сигнал отправлен!");
-   const showCoordsDebounced = debounceDecorator(showCoords);
-   
-   setTimeout(showCoordsDebounced.history); // Сигнал отправлен
-   setTimeout(showCoordsDebounced.history, 5000); // проигнорировано так как от последнего вызова прошло менее 2000мс (300 - 0 < 2000)
-   setTimeout(showCoordsDebounced.history, 5200); // проигнорировано так как времени от последнего вызова прошло: 900-300=600 (600 < 2000)
-   setTimeout(showCoordsDebounced.history, 5400); // проигнорировано так как времени от последнего вызова прошло: 1200-900=300 (300 < 2000)
-   setTimeout(showCoordsDebounced.history, 5600); // проигнорировано так как времени от последнего вызова прошло: 2300-1200=1100 (1100 < 2000)
-   setTimeout(showCoordsDebounced.history, 5800); // Сигнал отправлен так как времени от последнего вызова прошло: 4400-2300=2100 (2100 > 2000)
-   setTimeout(showCoordsDebounced.history, 6000);
+
+    if(!time) {
+      f(...args);
+      wrapper.count ++;
+      time = true;
+    }
+
+    timerId = setTimeout(() => time = false, ms);
+  }
+
+  wrapper.count = 0;
+  return wrapper;
 }
+
+
+const sendSignal = () => console.log("Сигнал отправлен");
+const upgradedSendSignal = debounceDecorator2(sendSignal, 2000);
+setTimeout(upgradedSendSignal); // Сигнал отправлен
+setTimeout(upgradedSendSignal, 300); // проигнорировано так как от последнего вызова прошло менее 2000мс (300 - 0 < 2000)
+setTimeout(upgradedSendSignal, 900); // проигнорировано так как времени от последнего вызова прошло: 900-300=600 (600 < 2000)
+setTimeout(upgradedSendSignal, 1200); // проигнорировано так как времени от последнего вызова прошло: 1200-900=300 (300 < 2000)
+setTimeout(upgradedSendSignal, 2300); // проигнорировано так как времени от последнего вызова прошло: 2300-1200=1100 (1100 < 2000)
+setTimeout(upgradedSendSignal, 4400); // Сигнал отправлен так как времени от последнего вызова прошло: 4400-2300=2100 (2100 > 2000)
+setTimeout(upgradedSendSignal, 4500); // 
