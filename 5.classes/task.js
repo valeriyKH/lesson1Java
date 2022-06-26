@@ -46,30 +46,30 @@ class Magazine extends PrintEditionItem {
 }
 
 class Book extends PrintEditionItem {
-  constructor (name, releaseDate, pagesCount, state =100, type, author) {
-    super(name, releaseDate, pagesCount, state =100, type, author);
+  constructor (author, name, releaseDate, pagesCount, state =100, type) {
+    super(name, releaseDate, pagesCount, state =100, type);
     this.type = "book";
     this.author = author;
   }
 }
 
 class NovelBook extends Book {
-  constructor (name, releaseDate, pagesCount, state =100, type, author){
-    super(name, releaseDate, pagesCount, state =100, type, author);
+  constructor (author, name, releaseDate, pagesCount, state =100, type){
+    super(author, name, releaseDate, pagesCount, state =100, type);
     this.type = "novel";
   }
 }
 
 class FantasticBook extends Book {
-  constructor (name, releaseDate, pagesCount, state =100, type, author){
-  super(name, releaseDate, pagesCount, state =100, type, author);
+  constructor (author, name, releaseDate, pagesCount, state =100, type){
+  super(author, name, releaseDate, pagesCount, state =100, type);
   this.type = "fantastic";
   }
 }
 
 class DetectiveBook extends Book {
-  constructor (name, releaseDate, pagesCount, state =100, type, author){
- super(name, releaseDate, pagesCount, state =100, type, author)
+  constructor (author, name, releaseDate, pagesCount, state =100, type){
+ super(author, name, releaseDate, pagesCount, state =100, type)
   this.type = "detective";
   }
 }
@@ -91,7 +91,7 @@ console.log(picknick.state); //15
 
   class Library {
     constructor(name, books) {
-    this.name = "name";
+    this.name = name;
     this.books = [];
   }
 }  

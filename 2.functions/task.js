@@ -49,11 +49,12 @@ function makeWork(arrOfArr, worker) {
 }
 
 // Задание 3
-function worker2(){
-  let minimum = Math.abs(min);
-  let maximum = Math.abs(max);
-  let difference = maximum - minimum;
+function worker2(arr){
+  let minimum = Math.min(...arr);
+  let maximum = Math.max(...arr);
+  
 
-  return difference;
+  return Math.abs(maximum - minimum);
       
 }
+
