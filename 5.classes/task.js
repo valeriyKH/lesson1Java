@@ -90,36 +90,26 @@ console.log(picknick.state); //15
   // task2 
 
   class Library {
-    constructor(name, books) {
-    this.name = name;
-    this.books = [];
-  }
-}  
-  class addBook {
-    constructor(book){ 
-      if (this.state > 30) {
-      this.books += books;
-       }
-    }   
-  }
-    class findBookBy {
-    constructor(type, value){ 
-      this.type = type[0][0];
-      this.value = value[1][1];
-       }
-    }  
-
-      class giveBookByName {
-    constructor(bookName){ 
-      if(this.bookName === undefined){
-        this.bookName = null;
-      } else {
-        delete bookName.books
-        return bookName;
-      }
-       }
+    constructor(name) {
+        this.name = name;
+        this.books = [];
     }
 
+    addBook(book) {
+        if (book.state > 30) {
+            this.books.push(book);
+        }
+    }
+
+    findBookBy(type, value) {
+        return this.books.find((item) => item[type] === value) || null;
+    }
+
+    giveBookByName(bookName) {
+        let bookIndex = this.books.findIndex((item) => item.name === bookName);
+        return bookIndex === -1 ? null : this.books.splice(bookIndex, 1)[0];
+    }
+}
 
     const library = new Library("Библиотека имени Ленина");
 
@@ -152,32 +142,49 @@ console.log("Количество книг после выдачи: " + library.
     // Task3 
 
 
-Student.prototype.addMark = function (mark) {
-    if(this.marks == undefined) {
-      this.marks = [];
+    class Student {
+      constructor(name) {
+          this.name = name;
+          this.subjects = {};
+      }
+  
+      setSubject(subject) {
+          this.subjects[subject] = [];
+      }
+  
+      addMark(mark, subject) {
+          if (!this.subjects[subject]) {
+              this.setSubject(subject);
+          }
+          if (mark < 1 || mark > 5) {
+              console.log("Ошибка, оценка должна быть числом от 1 до 5");
+          } else {
+              this.subjects[subject].push(mark);
+          }
+      }
+  
+      getAverageBySubject(subject) {
+        if (this.subjects[subject]) {
+            return (this.subjects[subject].reduce((previousValue, currentValue) => previousValue + currentValue, 0) / this.subjects[subject].length);
+        } else {
+            console.log("Несуществующий предмет");
+        }
     }
-    this.marks.push(mark);
-  }
-  
-  
-  Student.prototype.addMarks = function (... addedMarks) {
-    if(this.marks == undefined) {
-      this.marks = [];
+
+    getAverage() {
+        let sum = 0;
+        for (let key of Object.keys(this.subjects)) {
+            sum = sum + this.getAverageBySubject(key);
+        }
+        return sum / Object.keys(this.subjects).length;
     }
-    addedMarks.forEach(mark => this.marks.push(mark));
-  } 
-  
-  Student.prototype.getAvg  = function () {
-    let sum = this.marks.reduce ((x, y) => x + y);
-    let avg = sum / this.marks.length;
-    return avg;
-  }
-  
-  Student.prototype.exclude = function (reason) {
-    delete this.subject;
-    delete this.marks;
-    this.exclude = reason;
-  }
+
+    exclude(reson) {
+        delete this.subject;
+        delete this.marks;
+        this.excluded = reson;
+    };
+}
   
   
   
